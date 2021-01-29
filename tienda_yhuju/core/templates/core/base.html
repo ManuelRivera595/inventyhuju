@@ -15,23 +15,39 @@
   </head>
   <body>
     <body>
+      <!-- precio -->
+      <div class="container-fluid">
+        <div class="row">
+          <span class="navbar-brand mb-0 h6">Costo S/.15.00 por envio</span>
+        </div>
+      </div>
       <!-- Navegación -->
       <!-- As a link -->
-      <nav class="navbar navbar-light bg-light">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">Navbar</a>
-        </div>
+      <!-- Image and text -->
+      <nav class="navbar navbar-light bg-light mb-0 ofertas"> 
+        <a class="navbar-brand" href="#">
+          <span class="navbar-brand mb-0 h6">Ofertas</span>
+          <img src="../static/core/img/placeholder.png" width="70" height="60" class="d-inline-block align-top" alt="">
+        </a>
       </nav>
       <!-- As a heading -->
-      <nav class="navbar navbar-light bg-light">
-        <div class="container-fluid">
-          <span class="navbar-brand mb-0 h1">Navbar</span>
+        <div class="container">
+          <div class="row justify-content-lg-center">
+            <div class="col col-lg-2">
+              correo
+            </div>
+            <div class="col-md-auto">
+              telefono
+            </div>
+            <div class="col col-lg-2">
+              whatssap
+            </div>
+          </div> 
         </div>
-      </nav>
-      <!-- burguer -->
+      <!-- burguer posicion-->
       <nav class="navbar navbar-expand-sm bg-light navbar-light" style="position: absolute; z-index: 10000 !important; width: 100% !important;">
         <div class="container">
-          <a class="navbar-brand" href="{% url 'home' %}">Playground</a>
+          <a class="navbar-brand" href="{% url 'home' %}">Yhuju</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ned" aria-controls="ned" aria-expanded="false">
             <span class="navbar-toggler-icon"></span>
           </button>
