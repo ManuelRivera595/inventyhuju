@@ -38,19 +38,54 @@ footer p {
 }
 
 
-/* // Small devices (landscape phones, 576px and up) */
-@media (min-width: 576px) { }
+/* mobile first */
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 250px) and (max-width: 767.99px) { 
+    .jumbotron {
+        padding-top: calc(var(--jumbotron-padding-y) * 2);
+        padding-bottom: calc(var(--jumbotron-padding-y) * 2); 
+    }
+    .lead {
+        color: red;
+    }
+    .cabetext {
+        color: salmon;
+    }
+    .categoria {
+        background-color: orange;
+    }
+}
 
 @media (min-width: 768px) {
     .jumbotron {
         padding-top: calc(var(--jumbotron-padding-y) * 2);
         padding-bottom: calc(var(--jumbotron-padding-y) * 2); 
     }
+    .lead {
+        color: red;
+    }
+    .cabetext {
+        color: yellow;
+    }
   
 }
 
 /* // Large devices (desktops, 992px and up) */
-@media (min-width: 992px) { }
+@media (min-width: 992px) { 
+    .lead {
+        color: red;
+    }
+    .cabetext {
+        color: blue;
+    }
+}
 
 /* // Extra large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) { }
+@media (min-width: 1200px) { 
+    .lead {
+        color: red;
+    }
+    .cabetext {
+        color: orange;
+    }
+}
