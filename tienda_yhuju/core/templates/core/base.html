@@ -67,19 +67,31 @@
       </div>
 
       <!-- info contact-->
-        <div class="container">
+      <div class="container">
+        <div class="row justify-content-lg-center">
+          <div class="col col-lg-2">
+            correo
+          </div>
+          <div class="col-md-auto">
+            telefono
+          </div>
+          <div class="col col-lg-2">
+            whatssap
+          </div>
           <div class="row justify-content-lg-center">
-            <div class="col col-lg-2">
-              correo
+            <div class="col col-md-3 col-sm-3">
+              fa
             </div>
-            <div class="col-md-auto">
-              telefono
+            <div class="col col-md-3 col-sm-3">
+              you
             </div>
-            <div class="col col-lg-2">
-              whatssap
+            <div class="col col-md-3 col-sm-3">
+              ins
             </div>
-          </div> 
-        </div>
+            <div class="col col-md-3 col-sm-12"></div>
+          </div>
+        </div> 
+      </div>
       <!-- burguer posicion-->
       <nav class="navbar navbar-expand-sm bg-light navbar-light" style="position: absolute; z-index: 10000 !important; width: 100% !important;">
         <div class="container">
@@ -109,6 +121,39 @@
 
       <!-- Contenido -->
       {% block content %}{% endblock %}
+      <!-- fin contenido -->
+
+      <!-- footer -->
+      <div class="card-group mt-1">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">Last updated 3 mins ago</small>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">Last updated 3 mins ago</small>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">Last updated 3 mins ago</small>
+          </div>
+        </div>
+      </div>
+
       <!-- Javascript -->
       <script src="{% static 'core/vendor/jquery/jquery.min.js' %}"></script>
       <script src="{% static 'core/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
