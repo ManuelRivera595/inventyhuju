@@ -15,8 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from control_interno import views
 
 urlpatterns = [
     path('', include('core.urls')),
+    # ruta del control_inventario
+    path('control_interno/2021/control/1302/', views.control_interno, name="control_interno"),
+    path('control_interno/2021/control/1302/proceso_interno/', views.proceso_interno, name="proceso_interno"),
     path('admin/', admin.site.urls),
 ]

@@ -1,8 +1,13 @@
-# pip install requirements.txt
+# pip install -r requirements.txt
 django==3.1.5
 pillow==8.1.0
 psycopg2-binary==2.8.5
 django-environ==0.4.5
 django-crispy-forms==1.10.0
 django-allauth==0.42.0
+
+
+
+
+
 

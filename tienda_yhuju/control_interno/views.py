@@ -1,3 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 
-# Create your views here.
+def control_interno(request):
+    return render(request, "core/index.html")
+
+def proceso_interno(request):
+    return render(request, "core/procesos.html")
+
+
