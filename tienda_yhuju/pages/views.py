@@ -8,6 +8,12 @@ from django.shortcuts import redirect
 from django.http import HttpResponse
 from django.utils.html import strip_tags #excel
 from openpyxl import Workbook  #excel
+from reportlab.lib.units import cm #pdf
+from reportlab.lib import colors #pdf
+from reportlab.pdfgen import canvas #pdf
+from io import BytesIO #pdf
+from django.views.generic import View #pdf
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle #pdf
 from .models import Page
 from .forms import PageForm
 
@@ -53,7 +59,7 @@ class BuscarView(TemplateView):
         return render(request, 'pages/buscar.html',
                     {'pages':pages, 'page':True})
 
-#Nuestra clase hereda de la vista genérica TemplateView
+#Descarga excel
 class ReporteExcel(TemplateView):
      
     #Usamos el método get para generar el archivo excel 
@@ -68,7 +74,7 @@ class ReporteExcel(TemplateView):
         ws['B1'] = 'INVENTARIO'
         #Juntamos las celdas desde la B1 hasta la E1, formando una sola celda
         ws.merge_cells('B1:H1')
-        #Creamos los encabezados desde la celda B3 hasta la E3
+        #Creamos los encabezados desde la celda B3 hasta la H1
         ws['B3'] = 'ID'
         ws['C3'] = 'PRODUCTO'
         ws['D3'] = 'DETALLE'
@@ -97,3 +103,62 @@ class ReporteExcel(TemplateView):
         return response
 
 #fin formato Excel
+
+#Descarga PDF
+class ReportePDF(View):  
+     
+    #def cabecera(self,pdf):
+        #Utilizamos el archivo logo_django.png que está guardado en la carpeta media/imagenes
+        #archivo_imagen = settings.MEDIA_ROOT+'/imagenes/logo_django.png'
+        #Definimos el tamaño de la imagen a cargar y las coordenadas correspondientes
+        #pdf.drawImage(archivo_imagen, 40, 750, 120, 90,preserveAspectRatio=True)
+
+    def tabla(self,pdf,y):
+        #Creamos una tupla de encabezados para neustra tabla
+        encabezados = ('ID', 'PRODUCTO', 'DETALLE', 'CANT', 'KG', 'P.C', 'P.V')
+        #Creamos una lista de tuplas que van a contener a las personas
+        detalles = [(page.id, page.title, strip_tags(page.content), page.order, page.decimal, page.pcompra, page.pventa) for page in Page.objects.all()]
+        #Establecemos el tamaño de cada una de las columnas de la tabla
+        detalle_orden = Table([encabezados] + detalles, colWidths=[1 * cm, 4 * cm, 6 * cm, 1.5 * cm, 1.5 * cm, 1.5 * cm, 1.5 * cm,])
+        #Aplicamos estilos a las celdas de la tabla
+        detalle_orden.setStyle(TableStyle(
+            [
+                #La primera fila(encabezados) va a estar centrada
+                ('ALIGN',(0,0),(3,0),'CENTER'),
+                #Los bordes de todas las celdas serán de color negro y con un grosor de 1
+                ('GRID', (0, 0), (-1, -1), 1, colors.black), 
+                #El tamaño de las letras de cada una de las celdas será de 10
+                ('FONTSIZE', (0, 0), (-1, -1), 10),
+            ]
+        ))
+        #Establecemos el tamaño de la hoja que ocupará la tabla 
+        detalle_orden.wrapOn(pdf, 800, 600)
+        #Definimos la coordenada donde se dibujará la tabla
+        detalle_orden.drawOn(pdf, 60,y)              
+         
+    def get(self, request, *args, **kwargs):
+        #Indicamos el tipo de contenido a devolver, en este caso un pdf
+        response = HttpResponse(content_type='application/pdf')
+        #La clase io.BytesIO permite tratar un array de bytes como un fichero binario, se utiliza como almacenamiento temporal
+        buffer = BytesIO()
+        #Canvas nos permite hacer el reporte con coordenadas X y Y
+        pdf = canvas.Canvas(buffer)
+        #Llamo al método cabecera donde están definidos los datos que aparecen en la cabecera del reporte.
+        #self.cabecera(pdf)
+        #Establecemos el tamaño de letra en 16 y el tipo de letra Helvetica
+        pdf.setFont("Helvetica", 16)
+        #Dibujamos una cadena en la ubicación X,Y especificada
+        pdf.drawString(230, 800, u"INVENTARIO YHUJU")
+        pdf.setFont("Helvetica", 14)
+        #pdf.drawString(200, 770, u"REPORTE DE PERSONAS")
+        y = 700
+        self.tabla(pdf, y)
+        #Con show page hacemos un corte de página para pasar a la siguiente
+        pdf.showPage()
+        pdf.save()
+        pdf = buffer.getvalue()
+        buffer.close()
+        response.write(pdf)
+        return response
+
+#fin formato PDF

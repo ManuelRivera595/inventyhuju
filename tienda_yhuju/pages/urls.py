@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import PageListView, PageDetailView, PageCreate, PageUpdate, PageDelete
-from .views import BuscarView, ReporteExcel
+from .views import BuscarView, ReporteExcel, ReportePDF
 
 pages_patterns = ([
     path('', PageListView.as_view(), name='pages'),
@@ -10,4 +10,5 @@ pages_patterns = ([
     path('delete/<int:pk>/', PageDelete.as_view(), name='delete'),
     path('buscar/',BuscarView.as_view(), name="buscar"),
     path('reporte_excel/',ReporteExcel.as_view(), name="reporte_excel"),
+    path('reporte_pdf/',ReportePDF.as_view(), name="reporte_pdf"),
 ], 'pages')
