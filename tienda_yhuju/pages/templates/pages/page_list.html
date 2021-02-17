@@ -67,13 +67,14 @@
       <div class="container mt-1">
           <div class="row">
           <div class="col-md-12 search">
-              <form method="" action="">
-              <div id="custom-search-input">
-                  <div class="input-group col-md-12">
-                  <input class="form-control text" name="buscalo" type="text" placeholder="Buscar..." aria-label="Search" name="buscar">
-                  <button class="btn btn-outline-success ml-2 boton" type="submit">Search</button>
-                  </div>
-              </div>
+              <form method="POST" action="buscar/">
+                {% csrf_token %}
+                <div id="custom-search-input">
+                    <div class="input-group col-md-12">
+                    <input class="form-control text" name="buscalo" type="text" placeholder="Buscar..." aria-label="Search" name="buscar">
+                    <button class="btn btn-outline-success ml-2 boton" type="submit">Search</button>
+                    </div>
+                </div>
               </form>
           </div>
           </div>
