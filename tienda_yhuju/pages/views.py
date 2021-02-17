@@ -3,23 +3,36 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse, reverse_lazy
+from django.shortcuts import redirect
 from .models import Page
+from .forms import PageForm
+
+#staff
+class StaffRequiredMixin(object):
+    """
+    Usuario miembro del staff
+    """
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_staff:
+            return redirect(reverse_lazy('admin:login'))
+        return super(StaffRequiredMixin, self).dispatch(request, *args, **kwargs)
+    
 
 # Create your views here.
-class PageListView(ListView):
+class PageListView(StaffRequiredMixin, ListView):
     model = Page
 
-class PageDetailView(DetailView):
+class PageDetailView(StaffRequiredMixin, DetailView):
     model = Page
 
-class PageCreate(CreateView):
+class PageCreate(StaffRequiredMixin, CreateView):
     model = Page
-    fields = ['title', 'content', 'order', 'decimal', 'pcompra', 'pventa']
+    form_class = PageForm
     success_url = reverse_lazy('pages:pages')
 
-class PageUpdate(UpdateView):
+class PageUpdate(StaffRequiredMixin, UpdateView):
     model = Page
-    fields = ['title', 'content', 'order', 'decimal', 'pcompra', 'pventa']
+    form_class = PageForm
     template_name_suffix = '_update_form'
     def get_success_url(self):
         return reverse_lazy('pages:update', args=[self.object.id]) + '?ok'
