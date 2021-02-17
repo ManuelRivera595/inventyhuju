@@ -6,20 +6,20 @@
   <div class="container mb-4">
     <div class="row">
       <nav class="navbar navbar-light bg-light col-md-12">
-          <a class="navbar-brand" href="#">
+          <a class="navbar-brand">
             <img src="/static/core/yhuju.jpg" width="70" height="40" class="d-inline-block align-top" alt="">
             <b style="color: #FE8D27;">YHUJU PROCESOS</b>
           </a>
           <div class="row-fluid">
-            <button type="button" class="btn btn-primary">
+            <a type="nav-link" class="btn btn-primary"  href="{% url 'pages:pages' %}">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-left" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5zM10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5z"/>
               </svg>
               <small style="color:white">ATRAS</small>
-            </button>
+            </a>
           </div>
       </nav>
-  </div>
+    </div>
     <table class="table table-bordered mt-4">
       <thead>
         <tr>
@@ -35,7 +35,7 @@
       </thead>
       <tbody>
         <tr>
-          <th scope="row">{{"000-"}}{{page.id}}</th>
+          <th scope="row">{{"00-"}}{{page.id}}</th>
           <td>{{page.title}}</td>
           <td>{{page.content|striptags|safe|truncatechars:"200"}}</td>
           <td>{{page.order}}</td>
@@ -43,7 +43,7 @@
           <td>{{page.pcompra|floatformat:2}}</td>
           <td>{{page.pventa|floatformat:2}}</td>
           <td>
-              <p><a href="{% url 'page' page.id page.title|slugify %}">
+              <p><a href="{% url 'pages:page' page.id page.title|slugify %}">
                 <small>borrar</small>
               </a>
                 <!--
