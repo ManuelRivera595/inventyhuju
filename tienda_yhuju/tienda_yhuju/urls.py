@@ -23,5 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # path auth
     # http://127.0.0.1:8000/2021/accounts/login/
+    # http://tiendayhuju.pythonanywhere.com/2021/accounts/login/
     path('2021/accounts/', include('django.contrib.auth.urls')),
 ]
